@@ -140,10 +140,18 @@ session = Session()
 # session.add(sale_4)
 #
 # session.commit()
-zapros = input()
-result = session.query(Book, Shop, Sale).filter(Publisher.name == zapros).filter(Publisher.id_publ == Book.id_publ).filter(Book.id_publ == Stock.id_book).filter(Stock.id_shop == Shop.id_shop).filter(Stock.id_stock == Sale.id_stock).all()
-for r in result:
-    print(f'{r[0]} | {r[1]} | {r[2]}')
 
+def get_shops()
+    result = session.query(Book.title, Shop.name, Sale.price, Sale.date_sale).select_from(Shop).join(Stock).join(Book).join(Publisher).join(Sale)
+    if zapros.isdigit():
+        a = result.filter(Publisher_id == zapros).all()
+    else:
+        a = result.filter(Publisher_name == zapros).all()
+    for book_title, shop_name, sale_price, sale_date in a:
+                print (f'{book_title: <40} | {shop_name: <10} | {sale_price: <8} | {sale_date.strftime('%d-%m-%Y')}')
+
+if __name__ == '__main__':
+    zapros = input('Введите имя или идентификатор издателя: ')
+    get_shops(zapros)
 
 session.close()
